@@ -2,7 +2,7 @@
 ## Índice
 - [Resumo](#resumo)
 - [Arquitetura AWS utilizada](#arquitetura-aws-utilizada)
-- [Tecnologias, ferramentas e linguagens utilizadas](#tecnologias,-ferramentas-e-linguagens-utilizadas)
+- [Ferramentas e linguagens utilizadas](#ferramentas-e-linguagens-utilizadas)
 - [Preparação do SGBD](#preparação-do-SGBD)
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
 
@@ -11,7 +11,7 @@ O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS,
 
 ## Arquitetura AWS utilizada
 
-## Tecnologias, ferramentas e linguagens utilizadas
+## Ferramentas e linguagens utilizadas
 - python
 - SQL
 - PySpark
