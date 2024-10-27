@@ -83,7 +83,7 @@ unzip awscliv2.zip
 ```
 - instalar o arquivo
 ```bash
-unzip awscliv2.zip
+sudo ./aws/install
 ```
 - confirmar a instalação verificando a versão
 ```bash
