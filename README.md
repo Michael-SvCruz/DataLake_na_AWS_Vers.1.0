@@ -2,7 +2,10 @@
 ## Índice
 - [Resumo](#resumo)
 - [Arquitetura AWS utilizada](#arquitetura-aws-utilizada)
-  
+- [Tecnologias, Ferramentas e linguagens utilizadas](#tecnologias,-ferramentas-e-linguagens-utilizadas)
+- [Preparação do SGBD](#preparação-do-SGBD)
+- [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
+
 ## Resumo
 O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS, para entregar dados prontos para consumo para os Cientistas de dados.
 
