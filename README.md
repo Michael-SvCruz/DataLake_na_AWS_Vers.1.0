@@ -6,7 +6,8 @@
 - [Preparação do SGBD](#preparação-do-SGBD)
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
 - [Criação da instância EC2](#criação-da-instância-EC2)
-    - [Acessando a instância EC2 via SSH](##acessando-a-instância-EC2-via-SSH)
+    - [Acessando a instância EC2 via SSH](#acessando-a-instância-EC2-via-SSH)
+    - [Criação de pastas scripts](#Criação-de-pastas-scripts)
 
 
 ## Resumo
@@ -50,7 +51,6 @@ O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu 
 ```bash
 ssh -i "chave_criada.pem" ubuntu@DNS_publico
 ```
-
 
 ### Criação de pastas scripts
 Foi criada uma pasta **script** na instância EC2, onde foi transferido 2 arquivos bash:
