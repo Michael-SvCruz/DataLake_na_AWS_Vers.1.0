@@ -7,7 +7,7 @@
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
 - [Criação da instância EC2](#criação-da-instância-EC2)
     - [Acessando a instância EC2 via SSH](#acessando-a-instância-EC2-via-SSH)
-    - [Criação de pastas scripts](#Criação-de-pastas-scripts)
+    - [Criação da pasta scripts](#criação-da-pasta-scripts)
 
 
 ## Resumo
@@ -52,7 +52,7 @@ O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu 
 ssh -i "chave_criada.pem" ubuntu@DNS_publico
 ```
 
-### Criação de pastas scripts
+### Criação da pasta scripts
 Foi criada uma pasta **script** na instância EC2, onde foi transferido 2 arquivos bash:
 - [Instalação Docker e Airflow](bash/install_docker_airflow.sh) **:** para instalação do Docker e Airflow na instância EC2;
 - [Download da Dags do S3](bash/download_files.sh) **:** para transferir do S3 prara o EC2 as DAGs que serão utilizadas no Airflow. 
