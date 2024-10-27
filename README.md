@@ -48,8 +48,8 @@ ssh -i "chave_criada.pem" ubuntu@DNS_publico
 
 ### Criação de pastas scripts
 Foi criada uma pasta **script** na instância EC2, onde foi transferido 2 arquivos bash:
-- [Instalação Docker e Airflow](bash/install_docker_airflow.sh) para instalação do Docker e Airflow na instância EC2;
-- [Download da Dags do S3](bash/download_files.sh) para transferir do S3 prara o EC2 as DAGs que serão utilizadas no Airflow. 
+- [Instalação Docker e Airflow](bash/install_docker_airflow.sh) **:** para instalação do Docker e Airflow na instância EC2;
+- [Download da Dags do S3](bash/download_files.sh) **:** para transferir do S3 prara o EC2 as DAGs que serão utilizadas no Airflow. 
 
 ### Instalação Docker e Airflow
 - De permissão para executar o arquivo
