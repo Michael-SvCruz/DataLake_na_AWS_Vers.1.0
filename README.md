@@ -96,4 +96,16 @@ sudo ./aws/install
 ```bash
 aws --version
 ```
+### Configurar AWS CLI na Instância EC2
+Execute o comando:
+```bash
+aws configure
+```
+Informe os seguintes parâmetros solicitados referente ao usuário IAM: <br>
+AWS Access Key ID = *********** <br>
+AWS Secret Access Key = *********** <br>
+Default region name = região que está utilizando <br>
+Default output format = .json <br>
+
+
   
