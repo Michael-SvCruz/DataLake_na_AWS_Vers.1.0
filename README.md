@@ -2,7 +2,7 @@
 ## Índice
 - [Resumo](#resumo)
 - [Arquitetura AWS utilizada](#arquitetura-aws-utilizada)
-- [Tecnologias, Ferramentas e linguagens utilizadas](#tecnologias,-ferramentas-e-linguagens-utilizadas)
+- [Tecnologias, ferramentas e linguagens utilizadas](#tecnologias,-ferramentas-e-linguagens-utilizadas)
 - [Preparação do SGBD](#preparação-do-SGBD)
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
 
