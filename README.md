@@ -11,7 +11,7 @@ O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS,
 
 ## Arquitetura AWS utilizada
 
-## Tecnologias, Ferramentas e linguagens utilizadas
+## Tecnologias, ferramentas e linguagens utilizadas
 - python
 - SQL
 - PySpark
