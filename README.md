@@ -6,6 +6,7 @@
 - [Preparação do SGBD](#preparação-do-SGBD)
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
 - [Criação da instância EC2](#criação-da-instância-EC2)
+    -[Acessando a instância EC2 via SSH](#acessando-a-instância-EC2-via-SSH)
 
 ## Resumo
 O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS, para entregar dados prontos para consumo para os Cientistas de dados.
@@ -40,7 +41,7 @@ Para esse projeto a estrutura no Bucket S3 utilizada é a seguinte:
 - **0005_logs:** onde ficarão armazenados os Logs registrados pelos EMR's.
 
 ## Criação da instância EC2
-O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não irei detalhar as políticas de segurança utilizadas durante o projeto para não extender mas lembrece de sempre utilizar aquelas com o menor previlégio necessário para o seu caso porque traz uma maior segurança segurança.
+O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não extender mas lembre-se de sempre utilizar aquelas com o menor previlégio necessário para o seu caso porque traz uma maior segurança segurança.
 
 ### Acessando a instância EC2 via SSH
 - Primeiro libera a porta 22 para o seu IP no grupo de segurança vinculado a sua instância EC2.
