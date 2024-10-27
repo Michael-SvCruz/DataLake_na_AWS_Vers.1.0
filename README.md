@@ -6,7 +6,8 @@
 - [Preparação do SGBD](#preparação-do-SGBD)
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
 - [Criação da instância EC2](#criação-da-instância-EC2)
-    -[Acessando a instância EC2 via SSH](#acessando-a-instância-EC2-via-SSH)
+    - [Acessando a instância EC2 via SSH](##acessando-a-instância-EC2-via-SSH)
+
 
 ## Resumo
 O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS, para entregar dados prontos para consumo para os Cientistas de dados.
