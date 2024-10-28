@@ -24,7 +24,9 @@
 ## Objetivo
 Criar e entregar de forma automática books de variáveis para consumo de cientistas de dados, reduzindo tempo e minimizando erros ao reduzir interferência humana.
 
-## Arquitetura AWS utilizada
+## Arquitetura AWS utilizada<br>
+
+![](imagens/dataLake_AWS.drawio.png)
 
 ## Ferramentas e linguagens utilizadas
 - <span lang="en">python</span>
