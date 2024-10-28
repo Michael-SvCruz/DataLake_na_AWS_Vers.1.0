@@ -128,13 +128,13 @@ Default output format = .json <br>
 
 ## Camada Bronze
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em cada camada irei relatar um resumo do processo. <br>
-Na camada bronze, os dados do mysql Local são acessados pela instância EC2, transformados para csv e armazenados no S3 (camada bronze). <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Na camada bronze, os dados do mysql Local são acessados pela instância EC2, transformados para csv e armazenados no S3 (camada bronze). <br>
 **Detalhes importantes:**
 - Os dados de acesso do banco mysql e da chave de acesso do usuário IAM devem estar corretos no arquivo [Config.cfg](bash/config.cfg)
 - O IP público da instância deve estar liberado no firewall e roteador local.
 
 ## Camada Silver
-Cada pasta da camada bronze é monitorada por uma Lambda específica, que na chegada do arquivo aciona a [DAG_silver](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver, criando um cluster EMR com um step job que executa o arquivo de [script_silver](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cada pasta da camada bronze é monitorada por uma Lambda específica, que na chegada do arquivo aciona a [DAG_silver](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver, criando um cluster EMR com um step job que executa o arquivo de [script_silver](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
 **Detalhes importantes:**
 - Nessa DAG foi necessário vincular um [arquivo(install_boto3)](bash/install_boto3.sh) bash responsável pela instalação do boto3 no cluster EMR.
 - Nesse script, é feita uma verificação para selecionar o arquivo csv mais recente na pasta bronze.
