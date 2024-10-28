@@ -33,7 +33,8 @@ O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS,
 O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python, a tabela sales que é o registro das vendas é a mais extensa, com 500.000 registros até o momento, de 01/01/2021 à 31/09/2024.
 
 ## Criação e estruturação do Bucket S3
-A estrutura no Bucket S3 utilizada é a seguinte:
+A estrutura no Bucket S3 utilizada é a seguinte: <br>
+
 ![](imagens/layout_bucket_S3.png)
 
 - **0000_bronze:** primeira camada do Data Lake, arquivos brutos exatamente como da fonte;
@@ -123,7 +124,13 @@ Foram utilizadas um total de 7 DAGs para o projeto, divididas em 3 grupos: <br>
 Em cada camada irei relatar um resumo do processo. <br>
 Na camada bronze, os dados do mysql Local são acessados pela instância EC2, transformados para csv e armazenados no S3 (camada bronze). <br>
 **Detalhes importantes:**
-- Os dados de acesso do banco mysql e da chave de acesso do usuário IAM devem estar corretos no arquivo config.cfg
+- Os dados de acesso do banco mysql e da chave de acesso do usuário IAM devem estar corretos no arquivo [Config.cfg](bash/config.cfg)
+- O IP público da instância deve estar liberado no firewall e roteador local.
+
+## Camada Silver
+A camada bronze é monitorada por uma Lambda, que na chegada do arquivo aciona a [DAG](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver e através dela que é executado o arquivo de [script](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
+**Detalhes importantes:**
+- Nessa DAG foi necessário vincular um [arquivo](bash/install_boto3.sh) bash responsável pela instalação do boto3.
 
 
 
