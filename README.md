@@ -133,9 +133,10 @@ Cada pasta da camada bronze é monitorada por uma Lambda específica, que na che
 - Nessa DAG foi necessário vincular um [arquivo(install_boto3)](bash/install_boto3.sh) bash responsável pela instalação do boto3.
 
 ## Camada Gold
-Diferente da camada silver, para essa etapa teremos apenas uma Lambda monitorando a chegada de 3 arquivos das pastas (silver/users, silver/products, silver/sales).<br> 
-Para que isso funcionasse foi necessário utilizar o DynamoDB, que teve uma tabela auxiliar criada com duas colunas: **ID** para identificar o assunto e **status** para informar se o arquivo foi recebido ou está pendente.<br> Então a cada arquivo que chega na camada silver a Lambda é aciona a altera o status (para recebido) na tabela auxiliar referente ao assunto. <br>
-Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, a Lambda enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diferente da camada silver, para essa etapa teremos apenas uma Lambda monitorando a chegada de 3 arquivos das pastas (silver/users, silver/products, silver/sales).<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para que isso funcionasse foi necessário utilizar o DynamoDB, que teve uma tabela auxiliar criada com duas colunas: **ID** para identificar o assunto e **status** para informar se o arquivo foi recebido ou está pendente.<br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Então a cada arquivo que chega na camada silver a Lambda é aciona a altera o status (para recebido) na tabela auxiliar referente ao assunto. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, a Lambda enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold
 
 
 
