@@ -19,7 +19,7 @@
 
 
 ## Resumo
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eesse projeto é referente a criação de Data Lake utilizando a Cloud AWS, tudo em um Pipeline gerenciado pelo Apache Airflow.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse projeto é referente a criação de um Data Lake utilizando a Cloud AWS, tudo em um Pipeline gerenciado pelo Apache Airflow.
 
 ## Objetivo
 Criar e entregar de forma automática books de variáveis para consumo de cientistas de dados, reduzindo tempo e minimizando erros ao reduzir interferência humana.
@@ -40,7 +40,7 @@ Criar e entregar de forma automática books de variáveis para consumo de cienti
 - AWS DynamoDB
 
 ## Preparação do SGBD
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python, a tabela sales que é o registro das vendas é a mais extensa, com 500.000 registros até o momento, de 01/01/2021 à 31/09/2024.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python, a tabela sales que contém os registros das vendas é a mais extensa, com 500.000 registros até o momento, de 01/01/2021 à 31/09/2024.
 
 ## Criação e estruturação do Bucket S3
 A estrutura no Bucket S3 utilizada é a seguinte: <br>
@@ -58,11 +58,11 @@ A estrutura no Bucket S3 utilizada é a seguinte: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seguindo as orientações da AWS um grupo de usuários foi criado contendo as permissões necessárias para o projeto e vinculado a ele um usuário com chaves de acesso para acessar o AWS CLI que é [instalado](#Instalação-do-AWS-CLI-na-instância-EC2) posteriormente.
 
 ## Criação da instância EC2
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não extender mas lembre-se de sempre utilizar aquelas com o menor previlégio necessário para o seu caso porque traz uma maior segurança segurança.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não estender mas lembre-se de sempre utilizar aquelas com o menor privilégio necessário para o seu caso porque traz uma maior segurança.
 
 ### Acessando a instância EC2 via SSH
-- Primeiro libera a porta 22 para o seu IP no grupo de segurança vinculado a sua instância EC2.
-- Agora para acessar a instância EC2 via prompt, navegue até o caminho onde a chave.pem foi armazenada e execute o comando:
+- Primeiro liberar a porta 22 para o **IP público local** no grupo de segurança vinculado a instância EC2.
+- Acessando a instância EC2 via prompt, é necessário navegar até o caminho onde a chave.pem foi armazenada e execute o comando:
 ```bash
 ssh -i "chave_criada.pem" ubuntu@DNS_publico
 ```
@@ -78,14 +78,18 @@ ssh -i "chave_criada.pem" ubuntu@DNS_publico
 ```bash
 chmod +x /home/ubuntu/scripts/install_docker_airflow.sh
 ```
+
 - Após conceder a permissão execute o arquivo.
+```bash
+./install_docker_airflow.sh
+```
 
 - Ao finalizar a instalação, na pasta ~/airflow execute o comando para iniciar o contêiner
 ```bash
 sudo docker compose up -d
 ```
-- Lembre-se de liberar a porta 8080 no grupo de segurança vinculado a sua instância EC2
-- Após liberar a porta coloque o seguinte endereço no navegador **dns_publico_da_instância:8080** ;
+- Liberada a porta 8080 no grupo de segurança vinculado a sua instância EC2
+- Acessando no navegador através do endereço: **dns_publico_da_instância:8080** ;
 - O usuário e senha são **airflow** para ambos.
 
 ### Instalação do AWS CLI na instância EC2
@@ -116,7 +120,7 @@ Execute o comando:
 ```bash
 aws configure
 ```
-Informe os seguintes parâmetros solicitados referente ao usuário IAM: <br>
+Registrando o usuário IAM através dos seguintes parâmetros solicitados: <br>
 AWS Access Key ID = *********** <br>
 AWS Secret Access Key = *********** <br>
 Default region name = região que está utilizando <br>
@@ -127,6 +131,11 @@ Default output format = .json <br>
 - [Ingestão](DAGs/bronze) _ responsáveis pela etapa de extração do MySQL e ingestão na camada bronze no formato **CSV** ;
 - [Processamento](DAGs/silver) _ responsáveis pela etapa de tratamento dos dados da camada bronze, alteração do formato para **parquet** e finaliza transferindo os dados para a camada silver;
 - [Book](DAGs/gold) _ responsável pela etapa de criação do book de variáveis e armazenamento na camada gold.<br>
+- DAGs salvas no S3 em codes/dags.
+- executando o comando na instância para realizar o download das DAGs do S3 para a pasta airflow/dags/ na instância.
+```bash
+./download_files.sh
+```
 
 **OBS.:** as DAGs das camadas de ingestão e processamento são um total de 3 para cada etapa, porém como em cada camada o que muda é apenas a tabela(assunto), irei deixar anexado apenas um exemplo para cada camada, no caso "products". 
 
