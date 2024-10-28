@@ -33,7 +33,7 @@ def _start_emr_cluster(**kwargs):
         LogUri='s3://nome_do_bucket/0005_logs/', 
         JobFlowRole='EMR_EC2_DefaultRole',
         ServiceRole='EMR_DefaultRole',
-        BootstrapActions=[  # Adicionando o script de bootstrap
+        BootstrapActions=[  # Adicionando o script de bootstrap para instalação do boto3
             {
                 'Name': 'Install boto3',
                 'ScriptBootstrapAction': {
