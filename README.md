@@ -144,6 +144,8 @@ Cada pasta da camada bronze é monitorada por uma Lambda específica, que na che
 - Após a leitura e deduplicação das bases sales e products da camada silver é feita a união de sales com a coluna product_category de products.
 - Criação das Flags de tempos utilizadas, no caso último mês, ultimos 3 meses, ultimos 6 meses e ultimos 12 meses;
 - E a criação da variáveis, no script como exemplo foi criado diversas variáveis, mas dependendo do assunto e demanda do negócio elas são alteradas, por exemplo churn não terá as mesmas variáveis que para fraude. **Esse Book de exemplo tem um total de 203 colunas.**
+- O Book é salvo na camada Gold no formato parquet, onde se torna pronto para consumo pelos cientistas de dados.
+- Nessa etapa um grupo de segurança é criado para os cientistas de dados terem acesso somente a pasta e arquivos específicos do book de variáveis.
 
 
 
