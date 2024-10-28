@@ -110,5 +110,12 @@ AWS Secret Access Key = *********** <br>
 Default region name = região que está utilizando <br>
 Default output format = .json <br>
 
+## Transferência das DAGs
+Foram utilizadas um total de 7 DAGs para o projeto, divididas em 3 grupos: <br>
+- [Ingestão](DAGs/bronze) _ responsáveis pela etapa de extração do MySQL e ingestão na camada bronze no formato **CSV** ;
+- Processamento _ responsáveis pela etapa de tratamento dos dados da camada bronze, alteração do formato para **parquet** e finaliza transferindo os dados para a camada silver;
+- Book _ responsável pela etapa de criação do book de variáveis e armazenamento na camada gold.
+
+
 
   
