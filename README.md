@@ -1,6 +1,7 @@
 # Criando um Data Lake na AWS
 ## Índice
 - [Resumo](#resumo)
+- [Objetivo](#Objetivo)
 - [Arquitetura AWS utilizada](#arquitetura-aws-utilizada)
 - [Ferramentas e linguagens utilizadas](#ferramentas-e-linguagens-utilizadas)
 - [Preparação do SGBD](#preparação-do-SGBD)
@@ -18,7 +19,10 @@
 
 
 ## Resumo
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS, para entregar dados prontos para consumo para os Cientistas de dados.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Eesse projeto é referente a criação de Data Lake utilizando a Cloud AWS, tudo em um Pipeline gerenciado pelo Apache Airflow.
+
+## Objetivo
+Criar e entregar de forma automática books de variáveis para consumo de cientistas de dados, reduzindo tempo e minimizando erros ao reduzir interferência humana.
 
 ## Arquitetura AWS utilizada
 
