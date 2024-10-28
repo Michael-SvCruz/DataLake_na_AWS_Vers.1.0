@@ -128,7 +128,7 @@ Na camada bronze, os dados do mysql Local são acessados pela instância EC2, tr
 - O IP público da instância deve estar liberado no firewall e roteador local.
 
 ## Camada Silver
-A camada bronze é monitorada por uma Lambda, que na chegada do arquivo aciona a [DAG](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver e através dela que é executado o arquivo de [script](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
+A camada bronze é monitorada por uma Lambda, que na chegada do arquivo aciona a [DAG_silver](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver e através dela que é executado o arquivo de [script_silver](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
 **Detalhes importantes:**
 - Nessa DAG foi necessário vincular um [arquivo](bash/install_boto3.sh) bash responsável pela instalação do boto3.
 
