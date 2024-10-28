@@ -57,9 +57,10 @@ ssh -i "chave_criada.pem" ubuntu@DNS_publico
 ```
 
 ### Criação da pasta scripts
-Foi criada uma pasta **script** na instância EC2, onde foi transferido 2 arquivos bash:
+Foi criada uma pasta **script** na instância EC2, onde foi transferido 3 arquivos:
 - [Instalação Docker e Airflow](bash/install_docker_airflow.sh) **:** para instalação do Docker e Airflow na instância EC2;
-- [Download da Dags do S3](bash/download_files.sh) **:** para transferir do S3 prara o EC2 as DAGs que serão utilizadas no Airflow. 
+- [Download da Dags do S3](bash/download_files.sh) **:** para transferir do S3 prara o EC2 as DAGs que serão utilizadas no Airflow.
+- [Config](bash/config.cfg) **:** onde estão armazenadas as informações de acesso do mysql local e chave de acesso do usuário IAM
 
 ### Instalação Docker e Airflow
 - De permissão para executar o arquivo
@@ -113,8 +114,17 @@ Default output format = .json <br>
 ## Transferência das DAGs
 Foram utilizadas um total de 7 DAGs para o projeto, divididas em 3 grupos: <br>
 - [Ingestão](DAGs/bronze) _ responsáveis pela etapa de extração do MySQL e ingestão na camada bronze no formato **CSV** ;
-- Processamento _ responsáveis pela etapa de tratamento dos dados da camada bronze, alteração do formato para **parquet** e finaliza transferindo os dados para a camada silver;
-- Book _ responsável pela etapa de criação do book de variáveis e armazenamento na camada gold.
+- [Processamento](DAGs/silver) _ responsáveis pela etapa de tratamento dos dados da camada bronze, alteração do formato para **parquet** e finaliza transferindo os dados para a camada silver;
+- [Book](DAGs/gold) _ responsável pela etapa de criação do book de variáveis e armazenamento na camada gold.<br>
+
+**OBS.:** as DAGs das camadas de ingestão e processamento são um total de 3 para cada etapa, porém como em cada camada o que muda é apenas a tabela(assunto), irei deixar anexado apenas um exemplo para cada camada, no caso "products". 
+
+## Camada Bronze
+Em cada camada irei relatar um resumo do processo. <br>
+Na camada bronze, os dados do mysql Local são acessados pela instância EC2, transformados para csv e armazenados no S3 (camada bronze). <br>
+**Detalhes importantes:**
+- Os dados de acesso do banco mysql e da chave de acesso do usuário IAM devem estar corretos no arquivo config.cfg
+
 
 
 
