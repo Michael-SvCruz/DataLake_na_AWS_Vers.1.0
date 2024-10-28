@@ -30,10 +30,10 @@ O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS,
 - AWS DynamoDB
 
 ## Preparação do SGBD
-O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python.
+O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python, a tabela sales que é o registro das vendas é a mais extensa, com 500.000 registros até o momento, de 01/01/2021 à 31/09/2024.
 
 ## Criação e estruturação do Bucket S3
-Para esse projeto a estrutura no Bucket S3 utilizada é a seguinte:
+A estrutura no Bucket S3 utilizada é a seguinte:
 ![](imagens/layout_bucket_S3.png)
 
 - **0000_bronze:** primeira camada do Data Lake, arquivos brutos exatamente como da fonte;
@@ -42,6 +42,9 @@ Para esse projeto a estrutura no Bucket S3 utilizada é a seguinte:
 - **0003_controle:** arquivos de controle dos processos entre as camadas;
 - **0004_codes:** onde estarão armazenadas as Dags de uso do Airflow e scripts utilizados pelos EMR's;
 - **0005_logs:** onde ficarão armazenados os Logs registrados pelos EMR's.
+
+## Grupo de segurança e usuário IAM
+Seguindo as orientações da AWS um grupo de usuários foi criado contendo as permissões necessárias para o projeto e vinculado a ele um usuário com chaves de acesso para acessar o AWS CLI que é [instalado](#Instalação-do-AWS-CLI-na-instância-EC2) posteriormente.
 
 ## Criação da instância EC2
 O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não extender mas lembre-se de sempre utilizar aquelas com o menor previlégio necessário para o seu caso porque traz uma maior segurança segurança.
