@@ -9,6 +9,7 @@
     - [Acessando a instância EC2 via SSH](#acessando-a-instância-EC2-via-SSH)
     - [Criação da pasta scripts](#criação-da-pasta-scripts)
     - [Instalação do AWS CLI na instância EC2](#instalação-do-AWS-CLI-na-instância-EC2)
+- [Grupo de segurança e usuário IAM](#Grupo-de-segurança-e-usuário-IAM)
 
 
 ## Resumo
