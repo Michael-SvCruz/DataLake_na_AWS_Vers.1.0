@@ -5,15 +5,20 @@
 - [Ferramentas e linguagens utilizadas](#ferramentas-e-linguagens-utilizadas)
 - [Preparação do SGBD](#preparação-do-SGBD)
 - [Criação e estruturação do Bucket S3](#criação-e-estruturação-do-Bucket-S3)
+- [Grupo de segurança e usuário IAM](#Grupo-de-segurança-e-usuário-IAM)
 - [Criação da instância EC2](#criação-da-instância-EC2)
     - [Acessando a instância EC2 via SSH](#acessando-a-instância-EC2-via-SSH)
     - [Criação da pasta scripts](#criação-da-pasta-scripts)
     - [Instalação do AWS CLI na instância EC2](#instalação-do-AWS-CLI-na-instância-EC2)
-- [Grupo de segurança e usuário IAM](#Grupo-de-segurança-e-usuário-IAM)
+    - [Configurar AWS CLI na Instância EC2](Configurar-AWS-CLI-na-Instância-EC2)
+- [Transferência das DAGs](Transferência-das-DAGs)
+- [Camada Bronze](Camada-Bronze)
+- [Camada Silver](Camada-Silver)
+- [Camada Gold](Camada-Gold)
 
 
 ## Resumo
-O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS, para entregar dados prontos para consumo para os Cientistas de dados.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS, para entregar dados prontos para consumo para os Cientistas de dados.
 
 ## Arquitetura AWS utilizada
 
@@ -31,7 +36,7 @@ O Objetivo desse projeto é a criação de uma Data Lake utilizando a Cloud AWS,
 - AWS DynamoDB
 
 ## Preparação do SGBD
-O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python, a tabela sales que é o registro das vendas é a mais extensa, com 500.000 registros até o momento, de 01/01/2021 à 31/09/2024.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O SGBD utilizado para esse projeto foi o MySql, criado um DataBase e alimentado com essas [tabelas](dados/tabelas.zip) (users, products, sales). As tabelas foram criadas com a biblioteca Faker do python, a tabela sales que é o registro das vendas é a mais extensa, com 500.000 registros até o momento, de 01/01/2021 à 31/09/2024.
 
 ## Criação e estruturação do Bucket S3
 A estrutura no Bucket S3 utilizada é a seguinte: <br>
@@ -46,10 +51,10 @@ A estrutura no Bucket S3 utilizada é a seguinte: <br>
 - **0005_logs:** onde ficarão armazenados os Logs registrados pelos EMR's.
 
 ## Grupo de segurança e usuário IAM
-Seguindo as orientações da AWS um grupo de usuários foi criado contendo as permissões necessárias para o projeto e vinculado a ele um usuário com chaves de acesso para acessar o AWS CLI que é [instalado](#Instalação-do-AWS-CLI-na-instância-EC2) posteriormente.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seguindo as orientações da AWS um grupo de usuários foi criado contendo as permissões necessárias para o projeto e vinculado a ele um usuário com chaves de acesso para acessar o AWS CLI que é [instalado](#Instalação-do-AWS-CLI-na-instância-EC2) posteriormente.
 
 ## Criação da instância EC2
-O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não extender mas lembre-se de sempre utilizar aquelas com o menor previlégio necessário para o seu caso porque traz uma maior segurança segurança.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não extender mas lembre-se de sempre utilizar aquelas com o menor previlégio necessário para o seu caso porque traz uma maior segurança segurança.
 
 ### Acessando a instância EC2 via SSH
 - Primeiro libera a porta 22 para o seu IP no grupo de segurança vinculado a sua instância EC2.
@@ -59,7 +64,7 @@ ssh -i "chave_criada.pem" ubuntu@DNS_publico
 ```
 
 ### Criação da pasta scripts
-Foi criada uma pasta **script** na instância EC2, onde foi transferido 3 arquivos:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foi criada uma pasta **script** na instância EC2, onde foi transferido 3 arquivos:
 - [Instalação Docker e Airflow](bash/install_docker_airflow.sh) **:** para instalação do Docker e Airflow na instância EC2;
 - [Download da Dags do S3](bash/download_files.sh) **:** para transferir do S3 prara o EC2 as DAGs que serão utilizadas no Airflow.
 - [Config](bash/config.cfg) **:** onde estão armazenadas as informações de acesso do mysql local e chave de acesso do usuário IAM
@@ -80,7 +85,7 @@ sudo docker compose up -d
 - O usuário e senha são **airflow** para ambos.
 
 ### Instalação do AWS CLI na instância EC2
-Para acessar o bucket S2 através da instância EC2 é necessário a instalação do CLI, mas primeiro é necessário instalar 2 ferramentas:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para acessar o bucket S2 através da instância EC2 é necessário a instalação do CLI, mas primeiro é necessário instalar 2 ferramentas:
 - **unzip**: para descompactar arquivos .zip;
 - **curl** : ferramenta para fazer requisições HTTP e baixar arquivos URLs
 ```bash
@@ -114,7 +119,7 @@ Default region name = região que está utilizando <br>
 Default output format = .json <br>
 
 ## Transferência das DAGs
-Foram utilizadas um total de 7 DAGs para o projeto, divididas em 3 grupos: <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Foram utilizadas um total de 7 DAGs para o projeto, divididas em 3 grupos: <br>
 - [Ingestão](DAGs/bronze) _ responsáveis pela etapa de extração do MySQL e ingestão na camada bronze no formato **CSV** ;
 - [Processamento](DAGs/silver) _ responsáveis pela etapa de tratamento dos dados da camada bronze, alteração do formato para **parquet** e finaliza transferindo os dados para a camada silver;
 - [Book](DAGs/gold) _ responsável pela etapa de criação do book de variáveis e armazenamento na camada gold.<br>
@@ -122,7 +127,7 @@ Foram utilizadas um total de 7 DAGs para o projeto, divididas em 3 grupos: <br>
 **OBS.:** as DAGs das camadas de ingestão e processamento são um total de 3 para cada etapa, porém como em cada camada o que muda é apenas a tabela(assunto), irei deixar anexado apenas um exemplo para cada camada, no caso "products". 
 
 ## Camada Bronze
-Em cada camada irei relatar um resumo do processo. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Em cada camada irei relatar um resumo do processo. <br>
 Na camada bronze, os dados do mysql Local são acessados pela instância EC2, transformados para csv e armazenados no S3 (camada bronze). <br>
 **Detalhes importantes:**
 - Os dados de acesso do banco mysql e da chave de acesso do usuário IAM devem estar corretos no arquivo [Config.cfg](bash/config.cfg)
