@@ -131,13 +131,17 @@ Na camada bronze, os dados do mysql Local são acessados pela instância EC2, tr
 Cada pasta da camada bronze é monitorada por uma Lambda específica, que na chegada do arquivo aciona a [DAG_silver](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver, criando um cluster EMR com um step job que executa o arquivo de [script_silver](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
 **Detalhes importantes:**
 - Nessa DAG foi necessário vincular um [arquivo(install_boto3)](bash/install_boto3.sh) bash responsável pela instalação do boto3 no cluster EMR.
+- Nesse script, é feita uma verificação para selecionar o arquivo csv mais recente na pasta bronze.
 
 ## Camada Gold
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Diferente da camada silver, para essa etapa teremos apenas uma Lambda monitorando a chegada de 3 arquivos das pastas (silver/users, silver/products, silver/sales).<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para que isso funcionasse foi necessário utilizar o DynamoDB, que teve uma tabela auxiliar criada com duas colunas: **ID** para identificar o assunto e **status** para informar se o arquivo foi recebido ou está pendente.<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Então a cada arquivo que chega na camada silver a Lambda é aciona a altera o status (para recebido) na tabela auxiliar referente ao assunto. <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, nesse momento a Lambda altera novamente toda a coluna status para pendente e enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold, criando um cluster EMR com o step job que executa o [script]() .
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, nesse momento a Lambda altera novamente toda a coluna status para pendente e enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold, criando um cluster EMR com o step job que executa o [script](codes/cd_sales_book.py) .
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse script é responsável pela criação do book de variáveis da seguinte forma:
+- Nele é especificado data (30/09/24) e período(12 meses) da REF, nesse caso o book terá início na data menciona olhando 12 meses anteriores.
+- Nessa etapa, para resgartar os dados da camada silver é feito o processo de deduplicação utilizando a data e período especificados.
+- Após a leitura e deduplicação das bases sales e products da camada silver é feita a união de sales com a coluna product_category de products. 
 
 
 
