@@ -128,9 +128,14 @@ Na camada bronze, os dados do mysql Local são acessados pela instância EC2, tr
 - O IP público da instância deve estar liberado no firewall e roteador local.
 
 ## Camada Silver
-A camada bronze é monitorada por uma Lambda, que na chegada do arquivo aciona a [DAG_silver](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver e através dela que é executado o arquivo de [script_silver](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
+Cada pasta da camada bronze é monitorada por uma Lambda específica, que na chegada do arquivo aciona a [DAG_silver](DAGs/silver/process_products_silver.py) que da início ao processo da camada silver e através dela que é executado o arquivo de [script_silver](codes/cd_products_process.py) da camada silver, script resonsável pelo tratamento dos dados, tranformação para o formato parquet e armazenamento na camada silver.<br>
 **Detalhes importantes:**
 - Nessa DAG foi necessário vincular um [arquivo(install_boto3)](bash/install_boto3.sh) bash responsável pela instalação do boto3.
+
+## Camada Gold
+Diferente da camada silver, para essa etapa teremos apenas uma Lambda monitorando a chegada de 3 arquivos das pastas (silver/users, silver/products, silver/sales).<br> 
+Para que isso funcionasse foi necessário utilizar o DynamoDB, que teve uma tabela auxiliar criada com duas colunas: **ID** para identificar o assunto e **status** para informar se o arquivo foi recebido ou está pendente.<br> Então a cada arquivo que chega na camada silver a Lambda é aciona a altera o status (para recebido) na tabela auxiliar referente ao assunto. <br>
+Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, a Lambda enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold
 
 
 
