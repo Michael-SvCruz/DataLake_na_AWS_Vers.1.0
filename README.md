@@ -159,9 +159,9 @@ Default output format = .json <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, nesse momento a Lambda altera novamente toda a coluna status para pendente e enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold, criando um cluster EMR com o step job que executa o [script](codes/cd_sales_book.py).<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse script é responsável pela criação do book de variáveis executando as seguintes etapas:
 - Nele é especificado data (30/09/24) e período(12 meses) da REF, nesse caso o book terá início na data menciona olhando 12 meses anteriores.
-- Nessa etapa, para resgartar os dados da camada silver é feito o processo de deduplicação utilizando a data e período especificados.
+- Nessa etapa, para resgatar os dados da camada silver é feito o processo de deduplicação utilizando a data e período especificados.
 - Após a leitura e deduplicação das bases sales e products da camada silver é feita a união de sales com a coluna product_category de products.
-- Criação das Flags de tempos utilizadas, no caso último mês, ultimos 3 meses, ultimos 6 meses e ultimos 12 meses;
+- Criação das Flags de tempos utilizadas, no caso último mês, últimos 3 meses, últimos 6 meses e últimos 12 meses;
 - E a criação da variáveis, no script como exemplo foi criado diversas variáveis, mas dependendo do assunto e demanda do negócio elas são alteradas, por exemplo churn não terá as mesmas variáveis que para fraude. **Esse Book de exemplo tem um total de 203 colunas.**
 - O Book é salvo na camada Gold no formato parquet, onde se torna pronto para consumo pelos cientistas de dados.
 - Nessa etapa um grupo de segurança é criado para os cientistas de dados terem acesso somente a pasta e arquivos específicos do book de variáveis.
