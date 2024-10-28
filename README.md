@@ -138,10 +138,12 @@ Cada pasta da camada bronze é monitorada por uma Lambda específica, que na che
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para que isso funcionasse foi necessário utilizar o DynamoDB, que teve uma tabela auxiliar criada com duas colunas: **ID** para identificar o assunto e **status** para informar se o arquivo foi recebido ou está pendente.<br> 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Então a cada arquivo que chega na camada silver a Lambda é aciona a altera o status (para recebido) na tabela auxiliar referente ao assunto. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Após os 3 arquivos chegarem, o que transforma o status de todos para recebido na tabela auxiliar, nesse momento a Lambda altera novamente toda a coluna status para pendente e enfim aciona a [DAG_gold](DAGs/gold/creation_book_gold.py) responsável pela camada Gold, criando um cluster EMR com o step job que executa o [script](codes/cd_sales_book.py) .
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse script é responsável pela criação do book de variáveis da seguinte forma:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Esse script é responsável pela criação do book de variáveis executando as seguintes etapas:
 - Nele é especificado data (30/09/24) e período(12 meses) da REF, nesse caso o book terá início na data menciona olhando 12 meses anteriores.
 - Nessa etapa, para resgartar os dados da camada silver é feito o processo de deduplicação utilizando a data e período especificados.
-- Após a leitura e deduplicação das bases sales e products da camada silver é feita a união de sales com a coluna product_category de products. 
+- Após a leitura e deduplicação das bases sales e products da camada silver é feita a união de sales com a coluna product_category de products.
+- Criação das Flags de tempos utilizadas, no caso último mês, ultimos 3 meses, ultimos 6 meses e ultimos 12 meses;
+- E a criação da variáveis, no script como exemplo foi criado diversas variáveis, mas dependendo do assunto e demanda do negócio elas são alteradas, por exemplo churn não terá as mesmas variáveis que para fraude. **Esse Book de exemplo tem um total de 203 colunas.**
 
 
 
