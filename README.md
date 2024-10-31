@@ -63,6 +63,7 @@ A estrutura no Bucket S3 utilizada é a seguinte: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), a instância possui uma função IAM com  políticas que permitem criação e acessso a clusters EMR e transferência de funções IAM específicas para esses cluster criados. Conforme boas práticas lembre-se de sempre utilizar funções com o menor privilégio necessário para uma maior segurança.
 
 ### Acessando a instância EC2 via SSH
+**Observação:** Optei por sempre acessar a instância via WSL2 com o ubuntu.
 - Primeiro liberar a porta 22 para o **IP público local** no grupo de segurança vinculado a instância EC2.
 - Acessando a instância EC2 via prompt, é necessário navegar até o caminho onde a chave.pem foi armazenada e execute o comando:
 ```bash
