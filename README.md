@@ -60,7 +60,7 @@ A estrutura no Bucket S3 utilizada é a seguinte: <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Seguindo as orientações da AWS um grupo de usuários foi criado contendo as permissões necessárias para o projeto e vinculado a ele um usuário com chaves de acesso para acessar o AWS CLI que é [instalado](#Instalação-do-AWS-CLI-na-instância-EC2) posteriormente.
 
 ## Criação da instância EC2
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), não serão detalhadas as políticas de segurança utilizadas durante o projeto para não estender mas lembre-se de sempre utilizar aquelas com o menor privilégio necessário para o seu caso porque traz uma maior segurança.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O tipo de instância utilizada foi uma m5.xlarge com sistema operacional Ubuntu e par de chaves .pem (faça o download da chave em um local que lembre posteriormente), a instância possui uma função IAM com  políticas que permitem criação e acessso a clusters EMR e transferência de funções IAM específicas para esses cluster criados. Conforme boas práticas lembre-se de sempre utilizar funções com o menor privilégio necessário para uma maior segurança.
 
 ### Acessando a instância EC2 via SSH
 - Primeiro liberar a porta 22 para o **IP público local** no grupo de segurança vinculado a instância EC2.
