@@ -165,9 +165,9 @@ Default output format = .json <br>
 - Nessa etapa, para resgatar os dados da camada silver é feito o processo de deduplicação utilizando a data e período especificados.
 - Após a leitura e deduplicação das bases sales e products da camada silver é feita a união de sales com a coluna product_category de products.
 - Criação das Flags de tempos utilizadas, no caso último mês, últimos 3 meses, últimos 6 meses e últimos 12 meses;
-- E a criação da variáveis, no script como exemplo foi criado diversas variáveis, mas dependendo do assunto e demanda do negócio elas são alteradas, por exemplo churn não terá as mesmas variáveis que para fraude. **Esse Book de exemplo tem um total de 203 colunas.**
+- E a criação da variáveis, no script como exemplo foi criado diversas variáveis, mas dependendo do assunto e demanda do negócio elas serão alteradas, por exemplo churn não terá as mesmas variáveis que para fraude. **Esse Book de exemplo tem um total de 203 colunas.**
 - O Book é salvo na camada Gold no formato parquet, onde se torna pronto para consumo pelos cientistas de dados.
-- Nessa etapa um grupo de segurança é criado para os cientistas de dados terem acesso somente a pasta e arquivos específicos do book de variáveis.
+- Um grupo de segurança foi criado para os cientistas de dados e conforme necessidade é incluído nele usuários que terão acesso aos arquivos do book de variáveis.
 
 
 
