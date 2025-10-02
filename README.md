@@ -96,7 +96,7 @@ sudo docker compose up -d
 - O usuário e senha são **airflow** para ambos.
 
 ### Instalação do AWS CLI na instância EC2
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para acessar o bucket S2 através da instância EC2 é necessário a instalação do CLI, mas primeiro é necessário instalar 2 ferramentas:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Para acessar o bucket S3 através da instância EC2 é necessário a instalação do CLI, mas primeiro é necessário instalar 2 ferramentas:
 - **unzip**: para descompactar arquivos .zip;
 - **curl** : ferramenta para fazer requisições HTTP e baixar arquivos URLs
 ```bash
